@@ -15,6 +15,7 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('topic/<uuid:pk>/', views.topic, name='topic'),
     path('entry/<uuid:pk>/', views.entry, name='entry'),
+    path('pingme/', views.pingme, name='pingme'),
 
     # User app URLs
     path('login/', auth_view.user_login, name='login'),

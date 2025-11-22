@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.conf import settings
 #from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -17,6 +17,10 @@ def index(request):
         return redirect("learning_logs:home")
     else:
         return render(request, 'learning_logs/index.html', { 'timestamp': int(time.time()) })
+
+def pingme(request):
+    '''Check and Keep the Site alive.'''
+    return HttpResponse("OK")
 
 @login_required
 def home(request):
