@@ -1,0 +1,127 @@
+/*
+    Design Scope
+    colors: purple, naturals, (blue for hovers) and their tones
+    icons: depict a kind of learning and writing
+*/
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1C1B1B;
+    color: #ffffff;
+    padding: 2rem;
+    box-sizing: border-box;
+    flex-wrap: wrap; /* Allows stacking on mobile */
+
+}
+
+/* Left side (text + icons) */
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.8rem;
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Contact items (icon + text in a row) */
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-item img {
+    width: 20px;
+    height: auto;
+}
+
+/* Attribution text */
+.attribution {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+.attribution a {
+    color: #ccc;
+    text-decoration: underline;
+}
+
+/* 
+    Right side (footer image) 
+    on mobile app, the footer image is meant to be behind the texts (z-index)
+*/
+.footer-right {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-right img {
+    width: 60%; /* adjust as needed */
+    height: auto;
+}
+
+/* 📱 Mobile view */
+@media (max-width: 768px) {
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-right {
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .footer-right img {
+        width: 80%;
+    }
+
+    .contact-item img {
+        width: 16px;
+    }
+}
+
+.truncate-sx, .truncate-bx { /* small box, big box */
+    white-space: nowrap;        /* Keep text on one line */
+    overflow: hidden;           /* Hide overflowing text */
+    text-overflow: ellipsis;    /* Add the "..." */
+    width: 100px;               /* Required! */
+    display: block;             /* Or inline-block / flex item */
+}
+
+.truncate-bx { /* big box */
+  width: 300px;               /* Required! */
+}
+
+nav span {
+    cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
