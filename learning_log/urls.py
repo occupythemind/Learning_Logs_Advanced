@@ -25,5 +25,6 @@ urlpatterns = [
     #path('users/', include('users.urls')), We'll use learning_logs URL mapping for this
     path('broadcast/', include('broadcast.urls')),
     path('reports/', include('reports.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     path('favicon.ico', RedirectView.as_view(url=static('images/favicon.ico')), name='favicon'),
 ]

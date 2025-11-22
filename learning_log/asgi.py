@@ -1,16 +1,16 @@
-"""
-ASGI config for learning_log project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/
-"""
-
 import os
-
+from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
+from channels.auth import AuthMiddlewareStack
+import broadcast.routing  # import my app’s routing
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'learning_log.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dropbear.settings")
 
-application = get_asgi_application()
+application = ProtocolTypeRouter({
+    "http": get_asgi_application(),             # standard Django views
+    "websocket": AuthMiddlewareStack(           # WebSocket connections
+        URLRouter(
+            broadcast.routing.websocket_urlpatterns
+        )
+    ),
+})

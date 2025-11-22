@@ -35,7 +35,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     #myapps
+    'rest_framework',
     'learning_logs',
     'users',
     'broadcast',
@@ -60,6 +62,21 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Disable browsable API interface in production env. and enable it in Dev. env.
+if DEBUG:
+    REST_FRAMEWORK = {
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework.renderers.BrowsableAPIRenderer',  # ✅ only in dev.
+        )
+    }
+else:
+    REST_FRAMEWORK = {
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+        )
+    }
+
 ROOT_URLCONF = 'learning_log.urls'
 
 TEMPLATES = [
@@ -79,7 +96,18 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'learning_log.wsgi.application'
+# Tell Django to use ASGI via Channels
+ASGI_APPLICATION = "learning_log.asgi.application"
 
+# Redis Channel Layers Setup
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 if DEBUG:
     # Set headers for development mode to disable caching
@@ -146,13 +174,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'learning_logs:login'
 LOGOUT_URL = 'learning_logs:logout'
 
-# Heroku settings
-#import django_heroku
-#django_heroku.settings(locals())
-
-
-#env = os.environ['DEBUG']
-#if env == 'TRUE':
-#    DEBUG = True
-#else:
-#    DEBUG = False
+# Custom Error Messages
+INVALID_CRED = "Invalid username or password."
+UNKNOWN_PARAM = "An invalid api parameter or value was used."
+UNKNOWN_RESOURCE = "The item you're looking for, is unkown to us. Check your parameter of reference and try again."
+INVALID_ACTION = "Sorry, but this action isn't allowed."

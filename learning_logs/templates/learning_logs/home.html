@@ -1,5 +1,66 @@
 {% extends 'learning_logs/base.html' %}
 {% comment %} For authenticated users {% endcomment %}
-{% block content %}
 
-{% endblock content %}
+{% block title %}home | {{ user.username }}{% endblock %}
+
+{% block content %}
+  {% include "learning_logs/includes/navbar.html"%}
+
+  <div class="greet-card">
+      <p id="back"></p>
+      <h1 id="reformer">Welcome back, {{ user.username }}</h1>
+  </div>
+
+  <div class="container">
+      <div class="topics-container">
+          <table id="table-data">
+              <thead></thead>
+              <tbody></tbody>
+          </table>
+      </div>
+  </div>
+
+  <div class="add-icon" id="add-topic">add</div>
+  <div id="popup" class="modal">
+  <div class="modal-content">
+    <p id="popup-text"></p>
+    <input id="popup-input" type="text">
+    <button id="popup-ok">OK</button>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function showPopup(message) {
+        return new Promise(resolve => {
+            const modal = document.getElementById("popup");
+            const text = document.getElementById("popup-text");
+            const input = document.getElementById("popup-input");
+            const ok = document.getElementById("popup-ok");
+
+            text.textContent = message;
+            modal.style.display = "flex";
+            input.value = "";
+            input.focus();
+
+            ok.onclick = () => {
+            modal.style.display = "none";
+            resolve(input.value);
+            };
+        });
+    };
+
+    async function main() {
+        const add_topic = document.getElementById("add-topic");
+        await create_table_data();
+
+        //(Popup)
+        add_topic.addEventListener('click', () => showPopup("Topic:").then(value => console.log("User entered:", value)))
+    };
+
+    // wait till the DOM Content is fully loaded
+    document.addEventListener('DOMContentLoaded', () => main());
+</script>
+{% endblock %}

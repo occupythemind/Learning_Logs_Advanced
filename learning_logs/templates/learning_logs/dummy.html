@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta>
+        <title>Learning CSS</title>
+    </head>
+<style>
+h1 {
+    width: 10rem;
+}
+div {
+    border: 2px solid black;
+    margin: 10px;
+}
+textarea {
+    width: 50%;
+    padding: 3px;
+    box-sizing: margin-box; /* default value */
+}
+div[id^='b'], div[id^='f'] {
+    width: 10vw;
+    height: 5rem;
+}
+#b1 {
+    background-color: red;
+}
+#b2 {
+    background-color: green;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 35%;
+}
+#b3 {
+    background-color: blue;
+    position: absolute;
+    top: 0;
+    left: 65%;
+}
+.gg-bg {
+    background-color: rgb(189, 189, 154);
+    position: relative;
+    box-sizing: border-box;
+    width: 40vw;
+    height: 30vh;
+    overflow-y: scroll;
+}
+.hh-bg {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+   
+    width: 60vw;
+    height: 30vh;
+}
+</style>
+<body>
+
+    <h1>Learning</h1>
+    <div>Good content, Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore odio iusto aperiam sit eum quisquam numquam eius aut dolor, a iure, exercitationem error totam obcaecati fugit doloremque. Distinctio aliquid, quidem temporibus tempora nisi libero unde iusto adipisci aspernatur itaque odit saepe sed hic commodi illo architecto quisquam veniam. Nihil, in.</div>
+    <div> Bad content </div>
+    <textarea></textarea>
+    <div class="gg-bg">
+        <div id="b1"></div>
+        <div id="b2"></div>
+        <div id="b3"></div>
+    </div>
+
+    <div class="hh-bg">
+        <div id="f1">hello</div>
+        <div id="f2"></div>
+        <div id="f3"></div>
+    </div>
+
+    <ul>
+        <li>Hello</li>
+        <li>Who are you?</li>
+        <li>What are you?</li>
+        <li>Where are you?</li>
+    </ul>
+    {% comment %} JQuery {% endcomment %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</body>
+<script type="text/javascript">
+    let b1 = document.getElementById('b1');
+    let b2 = document.getElementById('b2');
+    let b3 = document.getElementById('b3');
+    b1.addEventListener("click", ()=>{b1.style.backgroundColor = 'yellow'});
+    b2.addEventListener("click", ()=>{b2.style.opacity = 1});
+    b3.addEventListener("click", ()=>{b3.style.height = '13rem'});
+
+    // JQuery Manipulation
+    $('#f1').css({
+        width: "200px",
+        height: "100px",
+        backgroundColor: "purple",
+        'color':'white'
+    })
+</script>
+</html>

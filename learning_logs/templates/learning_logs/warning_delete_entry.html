@@ -1,8 +1,0 @@
-{%extends 'learning_logs/base.html'%}
-  {%block content%}
-  <h1>Warning!!!</h1>
-    <p><a href="{%url 'learning_logs:edit_entry' entry.id%}">Back</a></p>
-    <p>You are about to delete the entry " {{entry}} ", Are you sure?</p>
-    <button><a href="{%url 'learning_logs:delete_entry' entry.id%}">Yes</a></button>
-    <button><a href="{%url 'learning_logs:topic' topic.id%}">No</a></button>
-  {%endblock content%}

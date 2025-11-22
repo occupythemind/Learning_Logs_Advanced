@@ -2,25 +2,43 @@
 {% block title %}Sign UP{% endblock %}
 
 {% block content %}
-    <h1>Sign UP</h1>
+    <div class="typing-container">
+        <input type="hidden" value="Sign UP" id="typed-text">
+        <span id="typing-text" class="typing-text"></span>
+        <span class="cursor"></span>
+    </div>
+
     <div class="auth-form">
+        {% if messages %}
+            {% for msg in messages %}
+            <div class="msg-notification-{{ msg.tags }}">
+                {% comment %} Meant to be a notification {% endcomment %}
+                <p>{{ msg }}</p>
+            </div>
+            {% endfor %}
+        {% endif %}
+
         <form action="{%url 'learning_logs:signup'%}" method="post">
+            {% csrf_token %}
             <span class="material-symbols-outlined">person</span> <br>
             <input type="text" name="username" placeholder="Username" required>
         <br>
             <span class="material-symbols-outlined">key</span>
         <div class="input-wrapper">
-            <input type="password" id="password1" placeholder="Password">
+            <input type="password" name="password1" id="password1" placeholder="Password" required>
             <i class="fa-solid fa-eye toggle-password" id="toggleIcon1"></i>
         </div>
         <br>
         <span class="material-symbols-outlined">key</span>
         <div class="input-wrapper">
-            <input type="password" id="password2" placeholder="Confirm Password">
+            <input type="password" name="password2" id="password2" placeholder="Confirm Password" required>
             <i class="fa-solid fa-eye toggle-password" id="toggleIcon2"></i>
         </div>
         <br>
             <input type="submit" value="Sign UP">
         </form>
+        <br>
+            <p>Already have an account? <a href="{% url 'learning_logs:login' %}">Login</a></p>
     </div>
+
 {% endblock %}

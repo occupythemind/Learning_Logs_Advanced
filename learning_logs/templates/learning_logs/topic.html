@@ -1,22 +1,32 @@
-{%extends 'learning_logs/base.html'%}
-{%block content%}
-<p><a href="{%url 'learning_logs:topics'%}">Back</a></p>
-    <p>Topic: <a href="{%url 'learning_logs:edit_topic' topic.id%}">{{topic}} </a> </p>
-    <p>Entries: </p>
-    <p><a href="{%url 'learning_logs:new_entry' topic.id%}">Add new
-      entry </a></p>
-
-        {%for entry in entries%}
-          <ul>
-            <li>
-            {{entry.date_added|date:'M d, Y H:i A'}}
-            {{entry.text|linebreaks}}
-            <p><a href="{%url 'learning_logs:edit_entry' entry.id%}">Edit
-              Entry</a></p>
-            </li>
-          </ul>
-        {%empty%}
-            <p>No Notes yet</p>
-        {%endfor%}
-     
-{%endblock content%}
+{% extends 'learning_logs/base.html' %}
+{% block content %}
+    {% include 'learning_logs/includes/navbar.html'%}
+    <div class="container">
+      <div class="topics-container">
+          <table id="table-data">
+              <thead></thead>
+              <tbody></tbody>
+          </table>
+      </div>
+  </div>
+    {% endblock content %}
+{% block extra_js %}
+<script>
+    async function main() {
+        const pk = get_pk_fromurlend();
+        const pageTeller = document.getElementById('page-teller');
+        const spanEl = document.createElement('span');
+        const topic = await getApiObjectData({pk: pk, key: 'title'});
+        spanEl.dataset.url = "/topic/" + pk + '/';
+        spanEl.addEventListener('click', () => redirectToUrl(spanEl, target='remain'));
+        spanEl.setAttribute('class', 'truncate-sx');
+        // this arrow '>' is meant to be seperate on its own such that clicking it brings a 
+        // popup that shows your topics or entries then you can just click from there
+        spanEl.textContent = ' > ' + topic;
+        pageTeller.appendChild(spanEl);
+        create_table_data({ endpoint: `/api/topics/${pk}/entries/`, excludeKeys: ['id', 'date_added', 'date_modified', 'topic'], redirect_to: `${window.origin}/entry/` });
+    }
+    // wait DOM Content is loaded
+    document.addEventListener('DOMContentLoaded', main);
+</script>
+{% endblock %}

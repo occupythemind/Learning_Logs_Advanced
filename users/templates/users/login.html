@@ -3,27 +3,49 @@
 {% load static %}
 
 {% block content %}
-
-<h1>Login</h1>
-<div class="auth-form">
-    <!-- The form content overlays the image -->
-    <div class="form-content">
-        <form action="{% url 'learning_logs:login' %}" method="POST">
-            <span class="material-symbols-outlined">person</span> <br>
-            <input type="text" name="username" placeholder="Username" required>
-        <br>
-            <span class="material-symbols-outlined">key</span> <br>
-            <div class="input-wrapper">
-                <input type="password" id="password" placeholder="Password" required>
-                <i class="fa-solid fa-eye toggle-password" id="toggleIcon"></i>
-            </div>
-        <br>
-            <p>Forgot password?</p>
-            {% csrf_token %}
-        <br>
-            <input type="submit" value="Login">
-        </form>
+    <div id="notification-popup" class="notification-popup">
+        <p id="notification-message"></p>
     </div>
-</div>
 
+    <div class="typing-container">
+        <input type="hidden" value="Login" id="typed-text">
+        <span id="typing-text" class="typing-text"></span>
+        <span class="cursor"></span>
+    </div>
+
+    <div class="auth-form">
+      {% comment %} <!-- The form content overlays the image --> {% endcomment %}
+
+      {% if messages %}
+          {% for msg in messages %} {% comment %} Need Proper placing {% endcomment %}
+              <script>
+                  showNotification("{{ msg|escapejs }}", "{{ msg.tags }}");
+              </script>
+          {% endfor %}
+      {% endif %}
+
+
+      <div class="form-content">
+          <form action="{% url 'learning_logs:login' %}" method="POST">
+              <span class="material-symbols-outlined">person</span> <br>
+              <input type="text" name="username" placeholder="Username" required>
+          <br>
+              <span class="material-symbols-outlined">key</span> <br>
+              <div class="input-wrapper">
+                  <input type="password" name="password" id="password" placeholder="Password" required>
+                  <i class="fa-solid fa-eye toggle-password" id="toggleIcon"></i>
+              </div>
+          <br>
+              <p>Forgot password?</p>
+              {% csrf_token %}
+          <br>
+              <input type="submit" value="Login">
+          </form>
+          <br>
+            <p>Don't have an account yet? <a href="{% url 'learning_logs:signup' %}">Sign UP</a></p>
+      </div>
+    </div>
+
+{% block extra_js %}
+{% endblock %}
 {% endblock %}

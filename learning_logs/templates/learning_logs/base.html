@@ -4,61 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="{% static 'learning_logs/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/l-base.css' %}?v={{ timestamp }}">
     {% block extra_css %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     {% block content %}{% endblock %}
     <footer>
-    <div class="footer-left">
-        <p class="footer-title">Contact Us</p>
-        <div class="contact-item" data-url="https://www.linkedin.com/in/david-akaluzia-14547336a" onclick="redirectToUrl(this)">
-            <img src="{% static 'learning_logs/images/linkedin-icon.png' %}" alt="LinkedIn icon">
-            <span>LinkedIn</span>
-        </div>
-        <div class="contact-item" data-url="https://t.me/occupythemind_pubot" onclick="redirectToUrl(this)">
-            <img src="{% static 'learning_logs/images/telegram-icon.png' %}" alt="Telegram icon">
-            <span>Telegram</span>
-        </div>
-        <div class="contact-item">
-            <img src="{% static 'learning_logs/images/facebook-icon.png' %}" alt="Facebook icon">
-            <span>Facebook</span>
-        </div>
-        <div class="contact-item">
-            <img src="{% static 'learning_logs/images/whatsapp-icon.png' %}" alt="WhatsApp icon">
-            <span>WhatsApp</span>
-        </div>
+        <div class="footer-left">
+            <p class="footer-title">Our Socials</p>
+            <div class="contact-item" data-url="https://www.linkedin.com/in/david-akaluzia-14547336a" onclick="redirectToUrl(this)">
+                <img src="{% static 'images/linkedin-icon.png' %}" alt="LinkedIn icon">
+                <span>LinkedIn</span>
+            </div>
+            <div class="contact-item">
+                <img src="{% static 'images/facebook-icon.png' %}" alt="Facebook icon">
+                <span>Facebook</span>
+            </div>
 
-        <div class="attribution">
-            <p>
-                Icons made by 
-                <a href="https://www.freepik.com" target="_blank" rel="noopener">Freepik</a>
-                from 
-                <a href="https://www.flaticon.com/" target="_blank" rel="noopener">Flaticon</a>
-            </p>
+            <div class="footer-end attribution">
+                <span class="public-docs">Privacy Policy</span> · <span class="public-docs">Terms of Service</span> · <span class="public-docs" data-url="https://t.me/occupythemind_pubot" onclick="redirectToUrl(this)">Contact US</span><br>
+                <span class="copyright">© 2025 OTM</span> <span><a href="https://www.freepik.com" title="Freepik">Icons, Images by Freepik</a></span>
+            </div>
         </div>
-    </div>
-
-    <div class="footer-right">
-        <img src="{% static 'learning_logs/images/footer-img.png' %}" alt="Footer image">
-    </div>
-</footer>
-
+    </footer>
 </body>
-{% comment %} Default JS {% endcomment %}
-<script>
-        function redirectToUrl(button, target='_blank') {
-                var url = button.getAttribute('data-url');
-                // Change the URL on the current tab
-                // NOTE: Only use remain for on site URLs and not external URLs
-                if (target == 'remain') {
-                    window.location.href = url;
-                } else { // Open a new tab (default)
-                    window.open(url, '_blank', 'noopener,noreferrer'); // For security reasons 😅, OKAY & UX
-                }
-        }
-</script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 {% block extra_js %}{% endblock %}
 
 </html>

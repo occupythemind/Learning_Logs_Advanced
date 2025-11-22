@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Pacifico&family=Shippori+Mincho&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
 body {
     background: url('../images/black-wood-bg-lnd.jpg') no-repeat center / cover fixed;
@@ -21,6 +22,42 @@ h1 {
     margin-right: 0px;
     width: 20vw;
 }
+
+/* container keeps element size stable */
+.typing-container {
+  display: inline-block;
+  position: relative;
+  line-height: 1.1;
+  height: 6rem; /* keeps the element’s height stable even when empty */
+}
+
+/* actual text */
+.typing-text {
+  display: inline-block;
+  white-space: nowrap;
+  letter-spacing: 2px;
+  font-family: 'Playfair Display', serif;
+  font-size: 6rem;  /* adjust as needed */
+  color: #ffffff;   /* white text to contrast on dark background */
+  /* maybe a slight text-shadow to pop over texture */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* cursor effect (white right border) */
+.cursor {
+  display: inline-block;
+  width: 4px;
+  background: white;
+  margin-left: 4px;
+  animation: blink 0.7s steps(2, start) infinite;
+  height: 6em;
+  vertical-align: bottom;
+}
+
+@keyframes blink {
+  to { opacity: 0; }
+}
+
 
 .auth-form {
     position: relative;
@@ -77,6 +114,27 @@ input[type='submit']:hover {
     transform: translateY(-2px);
 }
 
+input[required] {
+  border: 2px solid #501a53;
+  outline: none;
+}
+
+input[required]:focus {
+  border-width: 3px;
+  animation: borderAnimation 1s infinite alternate;
+  animation-timing-function: ease-in-out;
+
+}
+
+@keyframes borderAnimation {
+  0%   { border-color: #501a53; }
+  25%  { border-color: #6a1b9a; }
+  50%  { border-color: #9d0ba4; }
+  75%  { border-color: #b33e7e; }
+  100% { border-color: #e91e63; }
+}
+
+
 #password2 {
     margin-bottom: 5px;
 }
@@ -92,7 +150,7 @@ input[type='submit']:hover {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #3e1241;
+  /*border: 10px solid #3e1241;*/
   box-sizing: border-box;
   margin: 0px;
 }
@@ -126,7 +184,7 @@ p {
 
 /* Smooth highlight for both password fields */
 .input-wrapper input.visible {
-  border-color: #7b2e80; /* matches your purple theme */
+  border-color: #7b2e80; /* matches purple theme */
   box-shadow: 0 0 6px rgba(123, 46, 128, 0.4);
   background-color: #f0e6f2; /* soft lilac tint */
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -137,4 +195,46 @@ p {
   color: #d477dd; /* lighter purple when active */
   transform: translateY(-50%) scale(1.1);
   transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Popup container */
+.notification-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    max-width: 320px;
+    padding: 1rem 1.5rem;
+    color: white;
+    font-family: 'Shippori Mincho', serif; /* matches your header font */
+    font-size: 1rem;
+    border-left: 4px solid #7b2e80; /* default purple accent */
+    border-radius: 0.8rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    background-color: rgba(28, 27, 27, 0.85); /* dark semi-transparent background */
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+/* Show popup */
+.notification-popup.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Type variations */
+.notification-popup.error {
+    border-left-color: #d477dd; /* purple/pink */
+    background-color: rgba(28, 27, 27, 0.95);
+}
+
+.notification-popup.success {
+    border-left-color: #4caf50; /* green */
+    background-color: rgba(28, 27, 27, 0.95);
+}
+
+.notification-popup.info {
+    border-left-color: #2196f3; /* blue */
+    background-color: rgba(28, 27, 27, 0.95);
 }
